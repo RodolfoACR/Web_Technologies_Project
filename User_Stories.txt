@@ -6,24 +6,27 @@ User Stories
 	4. As an user, I want to logoff a session, so that I can close my account in the current device.
 	5. As an user, I want to logoff in all my devices, so that I can protect my account if somebody enters in without my authorization.
 	6. As a registered user, I want to click to a profile link, so that I can see my profile page.
-	7. As a registered user, I want to been able to change my name, image and state, so that I can customize my profile.
-	8. As a registered user, I want to logout off my account of this application, so that I can secure my account and my posts.
-	9. As a registered user, I want to upload images to the application, so that I can post images in my profile.
-	10. As a registered user, I want to delete an image I have uploaded, so that I can remove content I no longer want to display on my profile.
-	11. As a registered user, I want to put a description to my posts, so that I can give contexts to my posts.
-	12. As a registered user, I want to add hashtags to my posts, so that they can be searched.
-	13. As a registered user, I want to go to my profile page, so that I can see all my posts.
-	14. As a registered user, I want to search posts by category, so that I can easily find content related to specific topics or interests.
-	15. As a registered user, I want to write hashtags in a search tool, so that I can search posts of my interest.
-	16. As a registered user, I want to browse the searched posts, so that I can easily view them.
-	17. As a registered user, I want to like a post, so that I can express my appreciation for the post.
-	18. As a registered user, I want to comment a post, so that I can write my expressions for the post.
-	19. As a registered user, I want to save a post to my favorites, so that I can easily find and view it later.
-	20. As a registered user, I want to share a post with others, so that I can show content I like to my friends or followers inside or outside the application.
-	21. As a registered user, I want to download an image from a post, so that I can save it to my device for offline access or personal use.
-	22. As a registered user, I want to go to another user profile, so that I can see all his posts.
-	23. As a registered user, I want to know another user activity, so that I can know his total number of posts and likes receives.
-	24. As a registered user, I want to follow another user, so that I can easily search him, and see his recent upload posts.
-	25. As a registered user, I want to block an user if I don’t want to see more post of him, so that I can protect me from unwanted posts.
-	26. As a registered user, I want to report an user if he is dangerous for the community, so that he would be banned or restricted in the application.
-	27. As a registered user, I want to erase my account, so that I can quit the application at 100%.
+	7. As a registered user, I want to been able to change my name and image, so that I can customize my profile.
+	8. As a registered user, I want to add or edit a short bio on my profile, so that I can share more about myself with other users.
+	9. As a registered user, I want to logout off my account of this application, so that I can secure my account and my posts.
+	10. As a registered user, I want to upload images to the application, so that I can post images in my profile.
+	11. As a registered user, I want to delete an image I have uploaded, so that I can remove content I no longer want to display on my profile.
+	12. As a registered user, I want to put a description to my posts, so that I can give contexts to my posts.
+	13. As a registered user, I want to add hashtags to my posts, so that they can be searched.
+	14. As a registered user, I want to go to my profile page, so that I can see all my posts.
+	15. As a registered user, I want to search posts by category, so that I can easily find content related to specific topics or interests.
+	16. As a registered user, I want to write hashtags in a search tool, so that I can search posts of my interest.
+	17. As a registered user, I want to browse the searched posts, so that I can easily view them.
+	18. As a registered user, I want to like a post, so that I can express my appreciation for the post.
+	19. As a registered user, I want to comment a post, so that I can write my expressions for the post.
+	20. As a registered user, I want to comment a commentary of a post, so that I can write my expressions for that commentary.
+	21. As a registered user, I want to like a commentary, so that I can express my appreciation for the commentary.
+	22. As a registered user, I want to save a post to my favorites, so that I can easily find and view it later.
+	23. As a registered user, I want to share a post with others, so that I can show content I like to my friends or followers inside or outside the application.
+	24. As a registered user, I want to download an image from a post, so that I can save it to my device for offline access or personal use.
+	25. As a registered user, I want to go to another user profile, so that I can see all his posts.
+	26. As a registered user, I want to know another user activity, so that I can know his total number of posts and likes receives.
+	27. As a registered user, I want to follow another user, so that I can easily search him, and see his recent upload posts.
+	28. As a registered user, I want to block an user if I don’t want to see more post of him, so that I can protect me from unwanted posts.
+	29. As a registered user, I want to report an user if he is dangerous for the community, so that he would be banned or restricted in the application.
+	30. As a registered user, I want to erase my account, so that I can quit the application at 100%.
