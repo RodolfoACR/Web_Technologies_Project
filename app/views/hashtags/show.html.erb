@@ -1,0 +1,16 @@
+<h2>#<%= @hashtag.tag %></h2>
+
+<h4>Posts with this hashtag:</h4>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <%= image_tag post.image_url, width: 150 %><br>
+      <%= post.description %><br>
+      by @<%= post.profile.username %><br>
+      <%= link_to "View Post", post_path(post) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Back to hashtags", hashtags_path, class: "btn btn-secondary mt-3" %>

@@ -1,0 +1,20 @@
+<h2>Post de @<%= @post.profile.username %></h2>
+
+<img src="<%= @post.image_url %>" alt="Imagen" class="img-fluid mb-3">
+
+<p><strong>Description:</strong> <%= @post.description %></p>
+
+<p><strong>Hashtags:</strong> <%= @post.hashtags.map { |h| "##{h.tag}" }.join(", ") %></p>
+
+<hr>
+
+<h5>Comments:</h5>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li>
+      <strong>@<%= comment.profile.username %>:</strong> <%= comment.body %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Back to the list", posts_path, class: "btn btn-secondary mt-3" %>

@@ -1,0 +1,37 @@
+<h2>@<%= @profile.username %></h2>
+<p><strong>Bio:</strong> <%= @profile.bio %></p>
+<img src="<%= @profile.avatar_url %>" alt="Avatar" width="150" class="mb-3">
+
+<h3>Posts by @<%= @profile.username %></h3>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <%= image_tag post.image_url, width: 150 %><br>
+      <%= post.description %><br>
+      <%= link_to "View Post", post_path(post) %>
+    </li>
+  <% end %>
+</ul>
+
+<hr>
+<h4>Followers</h4>
+<ul>
+  <% @followers.each do |follower| %>
+    <li>
+      @<%= link_to follower.username, profile_path(follower) %>
+    </li>
+  <% end %>
+</ul>
+
+<h4>Following</h4>
+<ul>
+  <% @following.each do |followed| %>
+    <li>
+      @<%= link_to followed.username, profile_path(followed) %>
+    </li>
+  <% end %>
+</ul>
+
+
+<%= link_to "Back to all profiles", profiles_path, class: "btn btn-secondary mt-3" %>

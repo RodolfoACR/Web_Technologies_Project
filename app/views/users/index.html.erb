@@ -1,0 +1,13 @@
+<h1>All Users</h1>
+
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= user.email %> |
+      <%= link_to "@#{user.profile.username}", profile_path(user.profile) %> |
+      <%= link_to "View User", user_path(user) %>
+    </li>
+  <% end %>
+
+
+</ul>

@@ -1,0 +1,27 @@
+<h2>User: <%= @user.email %></h2>
+<p>Profile username: <%= @profile.username %></p>
+<p>Bio: <%= @profile.bio %></p>
+
+<%= link_to "View Profile", profile_path(@profile), class: "btn btn-primary" %>
+<%= link_to "Back to all users", users_path, class: "btn btn-secondary mt-2" %>
+
+<h3>Saved Posts</h3>
+
+<% if @favorite_posts.any? %>
+  <div class="row">
+    <% @favorite_posts.each do |post| %>
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <img src="<%= post.image_url %>" class="card-img-top" alt="Saved post">
+          <div class="card-body">
+            <p class="card-text"><%= post.description %></p>
+            <%= link_to "View Post", post_path(post), class: "btn btn-sm btn-outline-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-muted">No saved posts yet.</p>
+<% end %>
+

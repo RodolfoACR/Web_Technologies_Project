@@ -1,0 +1,17 @@
+<h1 class="mb-4">All Profiles</h1>
+
+<div class="container">
+  <div class="row">
+    <% @profiles.each do |profile| %>
+      <div class="col-md-4 mb-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">@<%= profile.username %></h5>
+            <p class="card-text"><%= profile.bio %></p>
+            <%= link_to "View Profile", profile_path(profile), class: "btn btn-sm btn-outline-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
