@@ -1,32 +1,25 @@
-<h1>All Users</h1>
-
-<ul>
-  <% @users.each do |user| %>
-    <li>
-      <%= user.email %> |
-      <%= link_to "@#{user.profile.username}", profile_path(user.profile) %> |
-      <%= link_to "View User", user_path(user) %>
-    </li>
-  <% end %>
-
-
-</ul>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Email</th>
-      <th scope="col">Username</th>
-      <th scope="col">User</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
+<div class="container">
+  <h1>All Users</h1>
+</div>
+<div class="container">
+  <table class="table">
+    <thead>
       <tr>
-        <th scope="row"><%= user.id %></th>
-        <td><%= user.email %></td>
-        <td><%= user.profile.username %></td>
-        <td><%= link_to "View User", user_path(user) %></td>
+        <th scope="col">#</th>
+        <th scope="col">Email</th>
+        <th scope="col">Username</th>
+        <th scope="col">User</th>
       </tr>
-    <% end %>
-  </tbody>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr style="vertical-align: middle;">
+          <th scope="row"><%= user.id %></th>
+          <td><%= user.email %></td>
+          <td><%= user.profile.username %></td>
+          <td><%= link_to "View User", user_path(user), class: "btn btn-sm btn-outline-primary" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

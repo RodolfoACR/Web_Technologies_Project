@@ -1,11 +1,13 @@
-<h1>Hashtags</h1>
-
-<ul>
-  <% @hashtags.each do |hashtag| %>
-    <li>
-      #<%= hashtag.tag %> - 
-      <%= link_to "View", hashtag_path(hashtag), class: "btn btn-sm btn-outline-primary" %>
-    </li>
-  <% end %>
-
-</ul>
+<div class="container">
+  <h1>Hashtags</h1>
+</div>
+<div class="container">
+  <ul>
+    <% @hashtags.each do |hashtag| %>
+      <li>
+        #<%= hashtag.tag %> - 
+        <%= link_to "View", hashtag_path(hashtag), class: "btn btn-sm btn-outline-primary" %>
+      </li>
+    <% end %>
+  </ul>
+</div>
