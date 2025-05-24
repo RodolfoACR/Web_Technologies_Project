@@ -7,7 +7,18 @@ class ProfilesController < ApplicationController
     @profile = Profile.find(params[:id])
     @posts = @profile.posts
     @followers = @profile.followers
-  @following = @profile.following
+    @following = @profile.following
+  end
 
+  def new
+    @profile = Profile.new
+  end
+
+  private
+
+    def profile_params
+    params.require(:profile).permit(
+      :username, :bio, :avatar_url
+    )
   end
 end

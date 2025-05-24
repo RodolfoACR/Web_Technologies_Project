@@ -1,0 +1,105 @@
+<div class="container">
+    <h1>New User & Profile</h1>
+    <p><%= link_to "Back to Users List", users_path, class: "btn btn-secondary" %></p>
+    <hr>
+</div>
+<div class="container">
+    <% if @user.errors.any? %>
+        <div class="alert alert-danger">
+            <h3><%= pluralize(@user.errors.count, "error") %> found:</h3>
+            <ul>
+                <% @user.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+</div>
+
+<div class="container">
+    <h3 class="mb-3">User Information</h3>
+
+    <%= form_with model: @user, local: true do |f| %>
+    
+        <div class="row mb-3">
+            <div class="col-sm-2 col-form-label" style="text-align: right;">
+                <%= f.label :email %>
+            </div>
+            <div class="col-sm-9">    
+                <%= f.email_field :email, class: "form-control", type: "email" %>
+            </div>
+        </div>
+        <br>
+        <div class="row mb-3">
+            <div class="col-sm-2 col-form-label" style="text-align: right;">
+                <%= f.label :password %>
+            </div>
+            <div class="col-sm-9">    
+                <%= f.email_field :password, type: "password", class: "form-control", id: "password" %>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-2 col-form-label" style="text-align: right;">
+                <p>Confirm Password</p>
+            </div>
+            <div class="col-sm-9">    
+                <input type="password" class="form-control" id="password_confirmation">
+                <script>
+                    document.getElementById("password_confirmation").addEventListener("input", function() {
+                        if (this.value !== document.getElementById("password").value) {
+                            this.setCustomValidity("Passwords do not match.");
+                            this.reportValidity();
+                        } else {
+                            this.setCustomValidity("");
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+
+        <h3 class="mb-3">Profile Information</h3>
+
+        <%= f.fields_for :profile do |pf| %>
+            <div class="row mb-3">
+                <div class="col-sm-2 col-form-label" style="text-align: right;">
+                    <%= pf.label :username %>
+                </div>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <div class="input-group-text" style="background: lightblue;">@</div>
+                        <%= pf.text_field :username, class: "form-control" %>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-2 col-form-label" style="text-align: right;">
+                    <%= pf.label :bio %>
+                </div>
+                <div class="col-sm-9">
+                    <%= pf.text_area :bio, class: "form-control" %>
+                </div>
+            </div>
+        <% end %>
+        <%= f.submit "Create User & Profile", class: "btn btn-primary", id: "submit" %>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const passwordField = document.getElementById("password");
+                const passwordConfirmationField = document.getElementById("password_confirmation");
+                const submitButton = document.getElementById("submit");
+
+                function validatePassword() {
+                    if (passwordField.value !== passwordConfirmationField.value) {
+                        submitButton.disabled = true;
+                    } else {
+                        submitButton.disabled = false;
+                    }
+                }
+
+                passwordField.addEventListener("input", validatePassword);
+                passwordConfirmationField.addEventListener("input", validatePassword);
+            });
+        </script>
+    <% end %>
+</div>
+
+
