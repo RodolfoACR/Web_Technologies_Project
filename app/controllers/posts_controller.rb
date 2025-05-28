@@ -8,17 +8,18 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
+    @profile = Profile.find(params[:profile_id])
+    @post = @profile.posts.build
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.profile = current_profile
+    @profile = Profile.find(params[:profile_id])
+    @post = @profile.posts.build(post_params)
 
     if @post.save
-      redirect_to @post, notice: 'Post was successfully created.'
+      redirect_to profile_path(@profile), notice: "Post created successfully."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -35,6 +36,29 @@ class PostsController < ApplicationController
       render :show
     end
   end
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to profile_path(@post.profile), notice: "Post deleted successfully."
+  end
 
+  private
 
+  def post_params
+    params.require(:post).permit(:image_url, :description)
+  end
+
+  def process_hashtags(post, hashtag_string)
+    return if hashtag_string.blank?
+
+    tags = hashtag_string.split(/[\s,]+/)
+
+    tags.each do |tag|
+      clean_tag = tag.gsub(/^#/, '').downcase
+      hashtag = Hashtag.find_by(tag: clean_tag)
+
+      # Solo asocia si existe
+      post.hashtags << hashtag if hashtag && !post.hashtags.include?(hashtag)
+    end
+  end
 end

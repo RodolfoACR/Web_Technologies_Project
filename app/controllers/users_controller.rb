@@ -20,15 +20,38 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to @user, notice: 'User was succesffully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
+  end
+
+  def edit
+    @user = User.find(params[:id])
+    @profile = @user.profile
+    @favorite_posts = @user.favorite_posts
+  end
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to @user, notice: "User & profile updated successfully."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to users_path, notice: "User and profile successfully deleted."
   end
 
   private
 
   def user_params
-    params.require(:user).permit(
-      :email, :password, profile_attributes: [:bio, :avatar_url, :username]
-    )
+    permitted = [:email]
+    permitted << :password unless params[:user][:password].blank?
+    permitted << :password_confirmation unless params[:user][:password_confirmation].blank?
+
+    params.require(:user).permit(permitted, profile_attributes: [:id, :username, :bio])
   end
+
+
 end

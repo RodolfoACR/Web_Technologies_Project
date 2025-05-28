@@ -6,14 +6,14 @@
 <div class="container">
     <% if @user.errors.any? %>
         <div class="alert alert-danger">
-            <h3><%= pluralize(@user.errors.count, "error") %> found:</h3>
+            <h5><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h5>
             <ul>
-                <% @user.errors.full_messages.each do |msg| %>
-                    <li><%= msg %></li>
+                <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
                 <% end %>
             </ul>
         </div>
-    <% end %>
+  <% end %>
 </div>
 
 <div class="container">

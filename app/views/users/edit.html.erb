@@ -1,0 +1,102 @@
+<div class="container">
+    <h1>Edit User & Profile</h1>
+    <p><%= link_to "Back to Users List", users_path, class: "btn btn-secondary" %></p>
+    <hr>
+</div>
+
+<div class="container">
+    <% if @user.errors.any? %>
+        <div class="alert alert-danger">
+            <h5><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h5>
+            <ul>
+                <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+</div>
+
+<div class="container">
+    <h3 class="mb-3">User Information</h3>
+
+    <%= form_with model: @user, local: true do |f| %>
+        <div class="row mb-3">
+            <div class="col-sm-2 col-form-label text-end">
+                <%= f.label :email %>
+            </div>
+            <div class="col-sm-9">    
+                <%= f.email_field :email, class: "form-control" %>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-sm-2 col-form-label text-end">
+                <%= f.label :password %> <small>(leave blank to keep current)</small>
+            </div>
+            <div class="col-sm-9">    
+                <%= f.password_field :password, class: "form-control", id: "password" %>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-sm-2 col-form-label text-end">
+                <p>Confirm Password</p>
+            </div>
+            <div class="col-sm-9">    
+                <input type="password" class="form-control" id="password_confirmation">
+            </div>
+        </div>
+
+        <h3 class="mb-3">Profile Information</h3>
+
+        <%= f.fields_for :profile do |pf| %>
+            <div class="row mb-3">
+                <div class="col-sm-2 col-form-label text-end">
+                    <%= pf.label :username %>
+                </div>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <div class="input-group-text" style="background: lightblue;">@</div>
+                        <%= pf.text_field :username, class: "form-control" %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-sm-2 col-form-label text-end">
+                    <%= pf.label :bio %>
+                </div>
+                <div class="col-sm-9">
+                    <%= pf.text_area :bio, class: "form-control" %>
+                </div>
+            </div>
+        <% end %>
+
+        <%= f.submit "Update User & Profile", class: "btn btn-primary", id: "submit" %>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const passwordField = document.getElementById("password");
+                const passwordConfirmationField = document.getElementById("password_confirmation");
+                const submitButton = document.getElementById("submit");
+
+                function validatePassword() {
+                    const pass = passwordField.value;
+                    const confirm = passwordConfirmationField.value;
+
+                    if (pass && pass !== confirm) {
+                        passwordConfirmationField.setCustomValidity("Passwords do not match.");
+                        submitButton.disabled = true;
+                    } else {
+                        passwordConfirmationField.setCustomValidity("");
+                        submitButton.disabled = false;
+                    }
+                }
+
+                passwordField.addEventListener("input", validatePassword);
+                passwordConfirmationField.addEventListener("input", validatePassword);
+            });
+        </script>
+    <% end %>
+</div>

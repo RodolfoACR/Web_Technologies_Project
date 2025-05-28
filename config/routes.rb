@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   get "users/show"
   get "users/new"
   get "users/create"
+  get "users/edit"
+  get "users/update"
+  get "users/destroy"
 
   get "profiles/index"
   get "profiles/show"
@@ -18,8 +21,10 @@ Rails.application.routes.draw do
   get "posts/show"
   
   resources :posts, only: [:index, :show]
-  resources :profiles, only: [:index, :show]
-  resources :users, only: [:index, :show, :new, :create]
+  resources :profiles, only: [:index, :show] do
+    resources :posts, only: [:new, :create, :edit, :update, :destroy]
+  end
+  resources :users, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :hashtags, only: [:index, :show]
 
 

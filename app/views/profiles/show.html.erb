@@ -61,13 +61,19 @@
               <%= post.hashtags.map { |h| "##{h.tag}" }.join(", ") %>
             </p>
             <%= link_to "View post", post_path(post), class: "btn btn-primary btn-sm" %>
+            <%= button_to "Delete Post", profile_post_path(@profile, post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
           </div>
         </div>
       </div>
     <% end %>
+  </div>
+  <div class="container mb-3 text-end">
+    <%= link_to "New Post", new_profile_post_path(@profile), class: "btn btn-success" %>
   </div>
   <hr>
 </div>
 <div class="container">
   <%= link_to "Back to profiles", profiles_path, class: "btn btn-secondary mt-3" %>
 </div>
+
+
