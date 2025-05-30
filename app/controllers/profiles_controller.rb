@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -14,16 +15,10 @@ class ProfilesController < ApplicationController
   def new
     @profile = Profile.new
   end
-    private
-
-    def profile_params
-    params.require(:profile).permit(
-      :username, :bio, :avatar_url
-    )
 
   def create
     @profile = Profile.new(profile_params)
-    @profile.user = User.first
+    @profile.user = current_user
     if @profile.save
       redirect_to @profile, notice: "Profile created successfully."
     else

@@ -20,9 +20,8 @@ Rails.application.routes.draw do
   get "posts/index"
   get "posts/show"
   
-  resources :profiles, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-    resources :posts, only: [:new, :create, :edit, :update, :destroy]
-  end
+  resources :profiles, only: [:index, :show, :new, :create, :edit, :update, :destroy] 
+  resources :posts, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :users, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :hashtags, only: [:index, :show]
 
