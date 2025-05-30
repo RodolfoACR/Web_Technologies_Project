@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @user.build_profile # Esto ayuda a crear un nuevo perfil asociado al usuario en el formulario
+    @user.build_profile 
   end
 
   def create

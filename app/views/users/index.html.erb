@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container">
   <h1>All Users</h1>
   <p><%= link_to "Create New User", new_user_path, class: "btn btn-primary" %></p>
@@ -25,3 +26,18 @@
     </tbody>
   </table>
 </div>
+=======
+<h1 class="text-center mb-4">All Users</h1>
+
+<div class="container">
+  <ul class="list-group">
+    <% @users.each do |user| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <%= user.email %> |
+        <%= link_to "@#{user.profile.username}", profile_path(user.profile), class: "btn btn-link" %> |
+        <%= link_to "View User", user_path(user), class: "btn btn-primary btn-sm" %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+>>>>>>> 6e5116f (Edit y Delete en Profile)
