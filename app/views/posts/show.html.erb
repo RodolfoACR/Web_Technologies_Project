@@ -1,11 +1,10 @@
 <div class="container">
   <h2>Post of @<%= @post.profile.username %></h2>
 </div>
+
 <div class="container">
   <img src="<%= @post.image_url %>" alt="Imagen" class="img-fluid mb-3">
-
   <p><strong>Description:</strong> <%= @post.description %></p>
-
   <p><strong>Hashtags:</strong> <%= @post.hashtags.map { |h| "##{h.tag}" }.join(", ") %></p>
   <hr>
 </div>
@@ -14,12 +13,14 @@
   <h5>Comments:</h5>
   <ul>
     <% @post.comments.each do |comment| %>
-      <li>
-        <strong>@<%= comment.profile.username %>:</strong> <%= comment.body %>
-      </li>
+      <div class="comment-box">
+        <p><%= comment.body %></p>
+        <%= link_to "Edit", edit_comment_path(comment), class: "btn btn-sm btn-warning" %>
+        <%= link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+
+      </div>
     <% end %>
   </ul>
-</div>
-<div class="container">
+
   <%= link_to "Back to the list", posts_path, class: "btn btn-secondary mt-3" %>
 </div>
