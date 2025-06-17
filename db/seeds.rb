@@ -1,10 +1,8 @@
-require 'faker'
-
-
 SavedPost.delete_all
 Follow.delete_all
 Like.delete_all
 Comment.delete_all
+PostHashtag.delete_all
 Hashtag.delete_all
 Post.delete_all
 Profile.delete_all
@@ -12,14 +10,19 @@ User.delete_all
 
 users = []
 5.times do
-  user = User.create!(email: Faker::Internet.email, password: '123456')
-  user.create_profile!(
-    username: Faker::Internet.unique.username,
-    bio: Faker::Company.catch_phrase,
-    avatar_url: Faker::Avatar.image
+  user = User.new(
+    email: Faker::Internet.email,
+    password: '123456'
   )
+  user.build_profile(
+    username: Faker::Internet.unique.username,
+    bio: Faker::Company.catch_phrase
+    # sin avatar_url → lo genera por callback
+  )
+  user.save!
   users << user
 end
+
 
 posts = []
 10.times do
@@ -30,12 +33,10 @@ posts = []
   )
 end
 
-
 5.times do
   h = Hashtag.create!(tag: Faker::Marketing.buzzwords.split(' ').first.downcase)
   posts.sample(3).each { |p| p.hashtags << h unless p.hashtags.include?(h) }
 end
-
 
 10.times do
   Comment.create!(
@@ -45,18 +46,18 @@ end
   )
 end
 
-
 10.times do
   Like.create!(profile: users.sample.profile, likeable: posts.sample)
 end
 
-
-profiles = users.map(&:profile)
-profiles.combination(2).to_a.sample(5).each do |a, b|
-  Follow.create!(follower: a, followed: b)
-end
-
+puts "Usuarios sin perfil: #{users.select { |u| u.profile.nil? }.size}"
 
 5.times do
-  SavedPost.create!(user: users.sample, post: posts.sample)
+  user = users.sample
+  user.reload # fuerza a recargar perfil relacionado
+  raise "User has no profile!" unless user.profile
+
+  SavedPost.create!(user: user, post: posts.sample)
 end
+
+
