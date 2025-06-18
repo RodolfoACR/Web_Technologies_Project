@@ -1,3 +1,4 @@
+# Borrado de datos en orden inverso a dependencias
 SavedPost.delete_all
 Follow.delete_all
 Like.delete_all
@@ -8,22 +9,34 @@ Post.delete_all
 Profile.delete_all
 User.delete_all
 
+# Reset de IDs si usas PostgreSQL
+ActiveRecord::Base.connection.reset_pk_sequence!('users')
+ActiveRecord::Base.connection.reset_pk_sequence!('profiles')
+ActiveRecord::Base.connection.reset_pk_sequence!('posts')
+ActiveRecord::Base.connection.reset_pk_sequence!('hashtags')
+ActiveRecord::Base.connection.reset_pk_sequence!('comments')
+ActiveRecord::Base.connection.reset_pk_sequence!('likes')
+ActiveRecord::Base.connection.reset_pk_sequence!('saved_posts')
+
+# Crear usuarios con perfiles
 users = []
 5.times do
   user = User.new(
     email: Faker::Internet.email,
     password: '123456'
   )
+
   user.build_profile(
     username: Faker::Internet.unique.username,
     bio: Faker::Company.catch_phrase
-    # sin avatar_url → lo genera por callback
+    # avatar_url omitido, asumimos que se genera por callback
   )
+
   user.save!
   users << user
 end
 
-
+# Crear publicaciones
 posts = []
 10.times do
   posts << Post.create!(
@@ -33,11 +46,17 @@ posts = []
   )
 end
 
+# Crear hashtags y asignarlos a posts
 5.times do
-  h = Hashtag.create!(tag: Faker::Marketing.buzzwords.split(' ').first.downcase)
-  posts.sample(3).each { |p| p.hashtags << h unless p.hashtags.include?(h) }
+  tag = Faker::Marketing.buzzwords.split(' ').first.downcase
+  hashtag = Hashtag.create!(tag: tag)
+
+  posts.sample(3).each do |post|
+    post.hashtags << hashtag unless post.hashtags.include?(hashtag)
+  end
 end
 
+# Crear comentarios
 10.times do
   Comment.create!(
     post: posts.sample,
@@ -46,18 +65,21 @@ end
   )
 end
 
+# Crear likes
 10.times do
-  Like.create!(profile: users.sample.profile, likeable: posts.sample)
+  Like.create!(
+    profile: users.sample.profile,
+    likeable: posts.sample
+  )
 end
 
-puts "Usuarios sin perfil: #{users.select { |u| u.profile.nil? }.size}"
-
+# Crear publicaciones guardadas
 5.times do
   user = users.sample
-  user.reload # fuerza a recargar perfil relacionado
+  user.reload # asegura que tenga el perfil asociado
   raise "User has no profile!" unless user.profile
 
   SavedPost.create!(user: user, post: posts.sample)
 end
 
-
+puts "✅ Seed completado: #{User.count} usuarios, #{Post.count} posts, #{Hashtag.count} hashtags"

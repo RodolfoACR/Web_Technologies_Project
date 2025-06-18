@@ -4,8 +4,10 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <!-- Enlaces de navegación (izquierda) -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <%= link_to "Posts", posts_path, class: "nav-link active" %>
         </li>
@@ -18,6 +20,25 @@
         <li class="nav-item">
           <%= link_to "Hashtags", hashtags_path, class: "nav-link" %>
         </li>
+      </ul>
+
+      <!-- Botones de autenticación (derecha) -->
+      <ul class="navbar-nav ms-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "Edit Profile", edit_user_registration_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= button_to "Sign Out", destroy_user_session_path, method: :delete, form_class: "d-inline", class: "nav-link btn btn-link", data: { turbo: false } %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+            </li>
+          <% end %>
       </ul>
     </div>
   </div>
