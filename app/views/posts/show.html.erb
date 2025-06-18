@@ -13,13 +13,32 @@
   <h5>Comments:</h5>
   <ul>
     <% @post.comments.each do |comment| %>
-      <div class="comment-box">
+      <div class="comment-box mb-3">
+        <p><strong>@<%= comment.profile.username %></strong> wrote:</p>
         <p><%= comment.body %></p>
-        <%= link_to "Edit", edit_comment_path(comment), class: "btn btn-sm btn-warning" %>
-        <%= link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
 
+        <% if can? :manage, comment %>
+          <%= link_to "Edit", edit_comment_path(comment), class: "btn btn-sm btn-warning" %>
+          <%= button_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+        <% end %>
       </div>
     <% end %>
+
+    <% if user_signed_in? %>
+      <hr>
+      <div class="container mt-4">
+        <h5>Leave a Comment:</h5>
+        <%= form_with model: [@post, Comment.new], local: true do |form| %>
+          <div class="mb-3">
+            <%= form.text_area :body, class: "form-control", rows: 3, placeholder: "Write your comment here..." %>
+          </div>
+          <div class="mb-3">
+            <%= form.submit "Post Comment", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
   </ul>
 
   <%= link_to "Back to the list", posts_path, class: "btn btn-secondary mt-3" %>

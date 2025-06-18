@@ -36,6 +36,16 @@ users = []
   users << user
 end
 
+admin = User.create!(
+  email: "admin@admin.com",
+  password: "admin123",
+  admin: true
+)
+admin.create_profile!(
+  username: "adminuser",
+  bio: "Administrador del sistema"
+)
+
 # Crear publicaciones
 posts = []
 10.times do

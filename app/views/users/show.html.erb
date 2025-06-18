@@ -3,14 +3,19 @@
   <p>Profile username: <%= @profile.username %></p>
   <p>Bio: <%= @profile.bio %></p>
 </div>
+
 <div class="container">
   <%= link_to "View Profile", profile_path(@profile), class: "btn btn-primary" %>
-  <%= link_to "Edit User", edit_user_path(@user), class: "btn btn-info" %>
-  <%= button_to "Delete User", user_path(@user), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+
+  <% if can? :manage, @user %>
+    <%= link_to "Edit User", edit_user_path(@user), class: "btn btn-info" %>
+    <%= button_to "Delete User", user_path(@user), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <% end %>
 
   <br>
   <%= link_to "Back to all users", users_path, class: "btn btn-secondary mt-2" %>
 </div>
+
 <div class="container">
   <h3>Saved Posts</h3>
 </div>

@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   
   resources :profiles, only: [:index, :show, :new, :create, :edit, :update, :destroy] 
   resources :posts, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  resources :posts do
+    resources :comments, only: [:create, :edit, :update, :destroy]
+  end
   resources :users, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :hashtags, only: [:index, :show]
   resources :comments, only: [:edit, :update, :destroy]

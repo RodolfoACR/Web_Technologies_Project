@@ -1,5 +1,20 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
+  load_and_authorize_resource
+
+  def create
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
+    @comment.profile = current_user.profile
+
+    if @comment.save
+      redirect_to @post, notice: "Comment posted!"
+    else
+      redirect_to @post, alert: "Failed to post comment."
+    end
+  end
+
 
   def edit
   end

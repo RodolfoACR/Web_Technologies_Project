@@ -23,11 +23,10 @@
     </div>
 
     <div class="mb-3">
-        <%= form.label :hashtags, "Select Existing Hashtags", class: "form-label" %>
-        <%= select_tag 'hashtags[]',
-                options_from_collection_for_select(Hashtag.all, :id, :tag),
-                multiple: true, class: "form-select" %>
+      <%= form.label :hashtag_list, "Hashtags (comma separated)", class: "form-label" %>
+      <%= text_field_tag :hashtag_list, '', class: "form-control", placeholder: "e.g. travel, food, tech" %>
     </div>
+
 
     <div class="text-end">
       <%= form.submit "Create Post", class: "btn btn-primary" %>

@@ -6,6 +6,10 @@
     <div class="col-sm-5">
       <h1 class="mb-4">@<%= @profile.username %></h1>
       <p><strong>Bio:</strong> <%= @profile.bio %></p>
+
+      <% if can? :update, @profile %>
+        <%= link_to "Edit", edit_profile_path(@profile), class: "btn btn-sm btn-outline-warning mt-2" %>
+      <% end %>
     </div>
     <div class="col-sm-5 text-center">
       <div class="row">
@@ -61,17 +65,23 @@
               <%= post.hashtags.map { |h| "##{h.tag}" }.join(", ") %>
             </p>
             <%= link_to "View post", post_path(post), class: "btn btn-primary btn-sm" %>
-            <%= button_to "Delete Post", post_path(post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+
+            <% if can? :manage, post %>
+              <%= link_to "Edit Post", edit_post_path(post), class: "btn btn-sm btn-outline-warning" %>
+              <%= button_to "Delete Post", post_path(post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+            <% end %>
+
 
           </div>
         </div>
       </div>
     <% end %>
   </div>
-  <div class="container mb-3 text-end">
-    <%= link_to "New Post", new_post_path, class: "btn btn-success" %>
-
-  </div>
+  <% if can? :create, Post.new(profile: @profile) %>
+    <div class="container mb-3 text-end">
+      <%= link_to "New Post", new_post_path, class: "btn btn-success" %>
+    </div>
+  <% end %>
   <hr>
 </div>
 <div class="container">
