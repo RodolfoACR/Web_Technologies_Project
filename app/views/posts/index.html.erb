@@ -16,6 +16,16 @@
               <%= post.hashtags.map { |h| "##{h.tag}" }.join(", ") %>
             </p>
             <%= link_to "View post", post_path(post), class: "btn btn-primary btn-sm" %>
+            <% liked = post.likes.exists?(profile: current_user.profile) %>
+
+            <%= form_with url: liked ? post_like_path(post, post.likes.find_by(profile: current_user.profile)) : post_likes_path(post),
+                          method: liked ? :delete : :post,
+                          class: "d-inline", local: true do %>
+              <button class="btn btn-sm <%= liked ? 'btn-danger' : 'btn-outline-primary' %>">
+                ❤️ <%= post.likes.count %>
+              </button>
+            <% end %>
+
           </div>
         </div>
       </div>

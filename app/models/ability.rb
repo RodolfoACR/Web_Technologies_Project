@@ -23,6 +23,8 @@ class Ability
     can :create, Post, profile: { user_id: user.id }
     can :create, Comment
     can :manage, Comment, profile: { user_id: user.id }
+    can [:create, :destroy], Like, profile_id: user.profile.id if user.profile
+
 
 
 
