@@ -25,6 +25,12 @@ class Ability
     can :manage, Comment, profile: { user_id: user.id }
     can [:create, :destroy], Like, profile_id: user.profile.id if user.profile
 
+    can :follow, Profile do |profile|
+      user.present? && user.profile != profile
+    end
+    can :unfollow, Profile do |profile|
+      user.present? && user.profile.following.include?(profile)
+    end
 
 
 

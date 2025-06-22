@@ -26,6 +26,7 @@ users = []
 
   user.build_profile(
     username: Faker::Internet.unique.username,
+    avatar_url: Faker::Avatar.image,
     bio: Faker::Company.catch_phrase
   )
 
@@ -86,4 +87,9 @@ end
   raise "User has no profile!" unless user.profile
 
   SavedPost.create!(user: user, post: posts.sample)
+end
+
+profiles = users.map(&:profile)
+profiles.combination(2).to_a.sample(5).each do |a, b|
+  Follow.create!(follower: a, followed: b)
 end
