@@ -29,16 +29,30 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+    associated_hashtags = @post.hashtags.to_a
 
     if @post.update(post_params)
       redirect_to @post, notice: 'Post was successfully updated.'
     else
       render :show
     end
+
+    process_hashtags(@post, params[:hashtag_list])
+    associated_hashtags.each do |hashtag|
+      hashtag.destroy if hashtag.posts.empty?
+    end
   end
+
   def destroy
     @post = Post.find(params[:id])
+    associated_hashtags = @post.hashtags.to_a
+
     @post.destroy
+
+    associated_hashtags.each do |hashtag|
+      hashtag.destroy if hashtag.posts.empty?
+    end
+
     redirect_to profile_path(@post.profile), notice: "Post deleted successfully."
   end
 
@@ -49,13 +63,16 @@ class PostsController < ApplicationController
   end
 
   def process_hashtags(post, hashtag_string)
+    post.hashtags.clear
+
     return if hashtag_string.blank?
 
     tags = hashtag_string.split(',').map { |tag| tag.strip.downcase }.uniq
 
     tags.each do |tag_name|
       hashtag = Hashtag.find_or_create_by(tag: tag_name)
-      post.hashtags << hashtag unless post.hashtags.include?(hashtag)
+      post.hashtags << hashtag
     end
   end
+
 end

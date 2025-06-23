@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">RedSocial</a>
+    <a class="navbar-brand" href="/"><strong>RedSocial</strong></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,7 +9,7 @@
       <!-- Enlaces de navegación (izquierda) -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <%= link_to "Posts", posts_path, class: "nav-link active" %>
+          <%= link_to "Posts", posts_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
           <%= link_to "Profiles", profiles_path, class: "nav-link" %>
@@ -25,20 +25,28 @@
       <!-- Botones de autenticación (derecha) -->
       <ul class="navbar-nav ms-auto">
         <% if user_signed_in? && current_user.profile %>
-          <li class="nav-item d-flex align-items-center me-2">
-            <%= link_to profile_path(current_user.profile), class: "nav-link p-0" do %>
-              <img src="<%= current_user.profile.avatar_url.presence || 'https://via.placeholder.com/40' %>" 
+          <li class="nav-item d-flex align-items-center me-3">
+            <% if current_user.admin? %>
+              <div class="navbar-text me-2">
+                <strong>Admin</strong>
+              </div>
+            <% end %>
+            <%= link_to profile_path(current_user.profile), class: "nav-btn p-0" do %>
+              <button type="button" class="btn btn-outline-light" style="padding: 2px; gap: 10px; display: flex; align-items: center;">
+                <%= current_user.profile.username %>
+                <img src="<%= current_user.profile.avatar_url.presence || 'https://via.placeholder.com/40' %>" 
                   alt="Avatar" 
                   width="35" 
                   height="35" 
                   style="border-radius: 50%; object-fit: cover; border: 2px solid white;">
+              </button>
             <% end %>
           </li>
           <li class="nav-item">
-            <%= link_to "Edit User", edit_user_registration_path, class: "nav-link" %>
+            <%= link_to "Edit User", edit_user_registration_path, class: "nav-link btn btn-link btn-outline-secondary" %>
           </li>
           <li class="nav-item">
-            <%= button_to "Sign Out", destroy_user_session_path, method: :delete, form_class: "d-inline", class: "nav-link btn btn-link", data: { turbo: false } %>
+            <%= button_to "Sign Out", destroy_user_session_path, method: :delete, form_class: "d-inline", class: "nav-link btn btn-link btn-outline-danger", data: { turbo: false } %>
           </li>
         <% else %>
           <li class="nav-item">

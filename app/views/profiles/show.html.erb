@@ -73,20 +73,19 @@
               Hashtags:
               <%= post.hashtags.map { |h| "##{h.tag}" }.join(", ") %>
             </p>
-            <%= link_to "View post", post_path(post), class: "btn btn-primary btn-sm" %>
-
-            <% if can? :manage, post %>
-              <%= link_to "Edit Post", edit_post_path(post), class: "btn btn-sm btn-outline-warning" %>
-              <%= button_to "Delete Post", post_path(post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
-            <% end %>
-
-
+            <div class="d-flex justify-content-between align-items-center">
+              <%= link_to "View post", post_path(post), class: "btn btn-primary btn-sm" %>
+              <% if can? :manage, post %>
+                <%= link_to "Edit Post", edit_post_path(post), class: "btn btn-sm btn-outline-warning" %>
+                <%= button_to "Delete Post", post_path(post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     <% end %>
   </div>
-  <% if can? :create, Post.new(profile: @profile) %>
+  <% if can? :create, Post.new(profile: @profile) && current_user.profile == @profile %>
     <div class="container mb-3 text-end">
       <%= link_to "New Post", new_post_path, class: "btn btn-success" %>
     </div>

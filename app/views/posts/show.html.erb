@@ -6,6 +6,12 @@
   <img src="<%= @post.image_url %>" alt="Imagen" class="img-fluid mb-3">
   <p><strong>Description:</strong> <%= @post.description %></p>
   <p><strong>Hashtags:</strong> <%= @post.hashtags.map { |h| "##{h.tag}" }.join(", ") %></p>
+  <div class="d-flex align-items-center">
+    <% if can? :manage, @post %>
+      <%= link_to "Edit Post", edit_post_path(@post), class: "btn btn-sm btn-outline-warning me-2" %>
+      <%= button_to "Delete Post", post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+    <% end %>
+  </div>
   <hr>
 </div>
 
@@ -16,16 +22,18 @@
       <div class="comment-box mb-3">
         <p><strong>@<%= comment.profile.username %></strong> wrote:</p>
         <p><%= comment.body %></p>
-
-        <% if can? :manage, comment %>
-          <%= link_to "Edit", edit_comment_path(comment), class: "btn btn-sm btn-warning" %>
-          <%= button_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
-        <% end %>
+        <div class="d-flex align-items-center mt-2">
+          <%= link_to "View Profile", profile_path(comment.profile), class: "btn btn-sm btn-info me-2" %>
+          <% if can? :manage, comment %>
+            <%= link_to "Edit", edit_comment_path(comment), class: "btn btn-sm btn-warning me-2" %>
+            <%= button_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+          <% end %>
+        </div>
       </div>
+      <hr>
     <% end %>
 
     <% if user_signed_in? %>
-      <hr>
       <div class="container mt-4">
         <h5>Leave a Comment:</h5>
         <%= form_with model: [@post, Comment.new], local: true do |form| %>

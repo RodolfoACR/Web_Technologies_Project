@@ -1,5 +1,12 @@
 <div class="container">
-  <h1>Posts</h1>
+  <h1>
+    Posts <small class="lead">Welcome to the posts page! Here you can view all the posts shared by users.</small>
+  </h1>
+  <% if user_signed_in? %>
+    <div class="mb-3">
+      <%= link_to "New Post", new_post_path, class: "btn btn-success" %>
+    </div>
+  <% end %>
   <hr>
 </div>
 <div class="container">
@@ -9,23 +16,27 @@
         <div class="card">
           <img src="<%= post.image_url %>" class="card-img-top" alt="Post image">
           <div class="card-body">
-            <h5 class="card-title">@<%= post.profile.username %></h5>
+            <%= link_to "@#{post.profile.username}", profile_path(post.profile), class: "text-decoration-none text-blue", style: "font-size: 1.2rem; font-weight: bold;" %>
             <p class="card-text"><%= post.description %></p>
             <p class="text-muted">
               Hashtags: 
               <%= post.hashtags.map { |h| "##{h.tag}" }.join(", ") %>
             </p>
-            <%= link_to "View post", post_path(post), class: "btn btn-primary btn-sm" %>
-            <% liked = post.likes.exists?(profile: current_user.profile) %>
-
-            <%= form_with url: liked ? post_like_path(post, post.likes.find_by(profile: current_user.profile)) : post_likes_path(post),
-                          method: liked ? :delete : :post,
-                          class: "d-inline", local: true do %>
-              <button class="btn btn-sm <%= liked ? 'btn-danger' : 'btn-outline-primary' %>">
+            <% if user_signed_in? %>
+              <%= link_to "View post", post_path(post), class: "btn btn-primary btn-sm" %>
+              <% liked = post.likes.exists?(profile: current_user.profile) %>
+              <%= form_with url: liked ? post_like_path(post, post.likes.find_by(profile: current_user.profile)) : post_likes_path(post),
+                            method: liked ? :delete : :post,
+                            class: "d-inline", local: true do %>
+                <button class="btn btn-sm <%= liked ? 'btn-danger' : 'btn-outline-primary' %>">
+                  ❤️ <%= post.likes.count %>
+                </button>
+              <% end %>
+            <% else %>
+              <button class="btn btn-sm btn-outline-primary" disabled>
                 ❤️ <%= post.likes.count %>
               </button>
             <% end %>
-
           </div>
         </div>
       </div>
