@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   get "hashtags/index"
   get "hashtags/show"
-  
+
   get "users/index"
   get "users/show"
   get "users/new"
@@ -19,30 +19,28 @@ Rails.application.routes.draw do
 
   get "profiles/index"
   get "profiles/show"
-  
+
   get "posts/index"
   get "posts/show"
-  
-  resources :profiles, only: [:index, :show, :new, :create, :edit, :update, :destroy]
-  resources :profiles, only: [:show] do
+
+  resources :profiles, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
+  resources :profiles, only: [ :show ] do
     post :follow, to: "follows#create", on: :member
     delete :unfollow, to: "follows#destroy", on: :member
   end
 
-  resources :posts, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  resources :posts, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
   resources :posts do
-    resources :comments, only: [:create, :edit, :update, :destroy]
+    resources :comments, only: [ :create, :edit, :update, :destroy ]
   end
   resources :posts do
-    resources :likes, only: [:create, :destroy]
+    resources :likes, only: [ :create, :destroy ]
   end
-  resources :users, only: [:index, :show, :new, :create, :edit, :update, :destroy]
-  resources :hashtags, only: [:index, :show]
-  resources :comments, only: [:edit, :update, :destroy]
+  resources :users, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
+  resources :hashtags, only: [ :index, :show ]
+  resources :comments, only: [ :edit, :update, :destroy ]
 
 
 
   get "up" => "rails/health#show", as: :rails_health_check
-
-
 end

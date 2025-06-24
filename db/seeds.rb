@@ -83,7 +83,7 @@ end
 
 5.times do
   user = users.sample
-  user.reload 
+  user.reload
   raise "User has no profile!" unless user.profile
 
   SavedPost.create!(user: user, post: posts.sample)

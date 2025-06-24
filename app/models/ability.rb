@@ -2,7 +2,6 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-
     if user.admin?
       # Permisos para el administrador
       can :manage, :all
@@ -23,7 +22,7 @@ class Ability
     can :create, Post, profile: { user_id: user.id }
     can :create, Comment
     can :manage, Comment, profile: { user_id: user.id }
-    can [:create, :destroy], Like, profile_id: user.profile.id if user.profile
+    can [ :create, :destroy ], Like, profile_id: user.profile.id if user.profile
 
     can :follow, Profile do |profile|
       user.present? && user.profile != profile

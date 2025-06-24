@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [ :create ]
 
   def new
     build_resource
@@ -12,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [
       :email, :password, :password_confirmation,
-      profile_attributes: [:username, :bio, :avatar_url]
+      profile_attributes: [ :username, :bio, :avatar_url ]
     ])
   end
 end

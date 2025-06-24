@@ -16,9 +16,9 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-gem 'faker'
-gem 'bcrypt', '~> 3.1.7'
-gem 'bootstrap', '~> 5.1.0'
+gem "faker"
+gem "bcrypt", "~> 3.1.7"
+gem "bootstrap", "~> 5.1.0"
 
 
 

@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :set_profile, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @profiles = Profile.all.includes(:user)

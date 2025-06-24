@@ -32,7 +32,7 @@ class PostsController < ApplicationController
     associated_hashtags = @post.hashtags.to_a
 
     if @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
+      redirect_to @post, notice: "Post was successfully updated."
     else
       render :show
     end
@@ -67,12 +67,11 @@ class PostsController < ApplicationController
 
     return if hashtag_string.blank?
 
-    tags = hashtag_string.split(',').map { |tag| tag.strip.downcase }.uniq
+    tags = hashtag_string.split(",").map { |tag| tag.strip.downcase }.uniq
 
     tags.each do |tag_name|
       hashtag = Hashtag.find_or_create_by(tag: tag_name)
       post.hashtags << hashtag
     end
   end
-
 end

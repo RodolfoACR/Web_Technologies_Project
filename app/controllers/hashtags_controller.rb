@@ -8,4 +8,3 @@ class HashtagsController < ApplicationController
     @posts = @hashtag.posts
   end
 end
-

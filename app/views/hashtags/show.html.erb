@@ -9,7 +9,7 @@
         <div class="card">
           <img src="<%= post.image_url%>" class="card-img-top" alt="Post image">
           <div class="card-body">
-            <h5 class="card-title">@<%= post.profile.username %></h5>
+            <%= link_to "@#{post.profile.username}", profile_path(post.profile), class: "text-decoration-none text-blue", style: "font-size: 1.2rem; font-weight: bold;" %>
             <p class="card-text"><%= post.description %></p>
             <p class="text-muted">
               Hashtags:
