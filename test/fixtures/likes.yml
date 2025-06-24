@@ -3,9 +3,9 @@
 one:
   profile: one
   likeable: one
-  likeable_type: Likeable
+  likeable_type: Post
 
 two:
   profile: two
   likeable: two
-  likeable_type: Likeable
+  likeable_type: Post

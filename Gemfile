@@ -18,7 +18,8 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem "faker"
 gem "bcrypt", "~> 3.1.7"
-gem "bootstrap", "~> 5.1.0"
+gem 'bootstrap', '~> 5.3.0'
+gem 'sassc-rails'
 
 
 

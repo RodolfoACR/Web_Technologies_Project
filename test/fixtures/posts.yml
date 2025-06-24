@@ -2,10 +2,10 @@
 
 one:
   profile: one
-  image_url: MyString
+  image_url: https://cdn.cdnstep.com/ecXbTB1DD0iZhJlYVaI4/cover.thumb256.png
   description: MyText
 
 two:
   profile: two
-  image_url: MyString
+  image_url: https://cdn.cdnstep.com/ecXbTB1DD0iZhJlYVaI4/cover.thumb256.png
   description: MyText

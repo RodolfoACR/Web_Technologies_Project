@@ -1,6 +1,13 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+include Devise::Test::IntegrationHelpers
+
+setup do
+  @user = users(:one)
+  sign_in @user
+end
+
 
 module ActiveSupport
   class TestCase

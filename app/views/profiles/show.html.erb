@@ -85,7 +85,7 @@
       </div>
     <% end %>
   </div>
-  <% if can? :create, Post.new(profile: @profile) && current_user.profile == @profile %>
+  <% if current_user.profile == @profile %>
     <div class="container mb-3 text-end">
       <%= link_to "New Post", new_post_path, class: "btn btn-success" %>
     </div>
